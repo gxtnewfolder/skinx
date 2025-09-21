@@ -37,7 +37,27 @@ A modern blog platform built with Next.js and Express.js, featuring a clean desi
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- PostgreSQL database
+- Docker and Docker Compose (for PostgreSQL)
+
+### Database Setup with Docker
+
+1. Navigate to backend directory:
+```bash
+cd backend
+```
+
+2. Start the PostgreSQL database:
+```bash
+docker compose up -d
+```
+
+This will start a PostgreSQL container with the following configuration:
+- Database name: skinxdb
+- Username: skinx
+- Password: skinxpass
+- Port: 5432 (accessible at localhost:5432)
+
+The database data is persisted using a Docker volume named `pgdata`.
 
 ### Backend Setup
 
@@ -53,7 +73,7 @@ npm install
 
 3. Create `.env` file:
 ```env
-DATABASE_URL="postgresql://username:password@localhost:5432/skinx_blog"
+DATABASE_URL="postgresql://skinx:skinxpass@localhost:5432/skinxdb"
 JWT_SECRET="your-super-secret-jwt-key-at-least-32-characters-long"
 PORT=4000
 ```
