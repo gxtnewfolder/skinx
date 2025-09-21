@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String   // bcrypt hash
+  createdAt DateTime @default(now())
+  posts     Post[]
+
+  @@index([email])
+  @@index([createdAt])
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String   // HTML allowed
+  tags      String[]
+  postedAt  DateTime
+  postedBy  String   // author name or email from JSON
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  String?
+
+  // Indexes for performance optimization
+  @@index([postedAt(sort: Desc)]) // For ordering posts by date
+  @@index([authorId]) // For filtering posts by author
+  @@index([tags]) // For tag-based filtering (GIN index for arrays)
+  @@index([title]) // For title-based searches
+  @@index([postedBy]) // For author name searches
+  @@index([createdAt])
+  @@index([updatedAt])
+}
