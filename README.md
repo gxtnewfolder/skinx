@@ -88,7 +88,12 @@ npm run prisma:migrate
 npm run prisma:gen
 ```
 
-6. Start the server:
+6. Seed the database with sample data:
+```bash
+npm run seed
+```
+
+7. Start the server:
 ```bash
 npm run dev
 ```
