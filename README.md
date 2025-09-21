@@ -1,4 +1,4 @@
-# SkinX Blog - Enhanced Version
+# SkinX Blog
 
 A modern blog platform built with Next.js and Express.js, featuring a clean design and robust functionality.
 
